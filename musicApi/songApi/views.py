@@ -170,9 +170,9 @@ def search_songs(request):
     try:
        if query:
         songs = Song.objects.filter(
-            Q(title__icontains=query) |
-            Q(artists__name__icontains=query) |
-            Q(genre__icontains=query)
+            Q(title__iexact=query) |
+            Q(artists__name__iexact=query) |
+            Q(genre__iexact=query)
         )
         serializer = SongSerializer(songs, many=True)
         return Response(serializer.data)
