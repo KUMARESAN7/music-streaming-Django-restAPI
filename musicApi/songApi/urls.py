@@ -12,6 +12,7 @@ urlpatterns = [
     path('playlists/<int:playlist_id>/', views.playlist_detail, name='playlist-retrieve-update-destroy'),
     path('users/<int:user_id>/',views.user_detail,name='user_detail'),
     path('search/',views.search_songs,name='search_songs'),
+    
 
     # user register and login
     path('register/', RegisterAPI.as_view(), name='register'),    

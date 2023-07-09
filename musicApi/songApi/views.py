@@ -10,8 +10,15 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.views import LoginView as KnoxLoginView
+from rest_framework.pagination import PageNumberPagination
 
 from django.db.models import Q
+
+# pagenation for songs model
+class SongPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 50
 
 @api_view(['GET', 'POST'])
 def clear_data(request):
@@ -22,9 +29,16 @@ def clear_data(request):
 @api_view(['GET', 'POST'])
 def song_list_create(request):
     if request.method == 'GET':
-        songs = Song.objects.all()
-        serializer = SongSerializer(songs, many=True)
-        return Response(serializer.data)
+        # add pagenation for song list
+        queryset = Song.objects.all()
+        paginator = SongPagination()
+        paginated_queryset = paginator.paginate_queryset(queryset, request)
+        serializer = SongSerializer(paginated_queryset, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+        # songs = Song.objects.all()
+        # serializer = SongSerializer(songs, many=True)
+        # return Response(serializer.data)
 
     elif request.method == 'POST':
         data = request.data
@@ -164,6 +178,8 @@ def search_songs(request):
         return Response(serializer.data)
     except songs.DoesNotExist:
         return Response(status=400, data={'message': 'No search query provided.'})
+
+
 
 # Register API
 class RegisterAPI(generics.GenericAPIView):
