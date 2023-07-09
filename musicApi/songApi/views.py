@@ -173,7 +173,7 @@ def search_songs(request):
             Q(title__iexact=query) |
             Q(artists__name__iexact=query) |
             Q(genre__iexact=query)
-        )
+        ).distinct()
         serializer = SongSerializer(songs, many=True)
         return Response(serializer.data)
     except songs.DoesNotExist:
