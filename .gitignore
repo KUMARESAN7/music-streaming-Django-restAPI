@@ -1,0 +1,8 @@
+# add venv file
+venv
+# environment file
+.environment
+.env
+
+# pycache files
+__pycache__
