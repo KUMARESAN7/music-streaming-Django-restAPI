@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class OccupationsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Occupations
+        model:Occupations
         fields = '__all__'
         depth = 2
         
@@ -20,30 +20,19 @@ class ArtistSerializer(serializers.ModelSerializer):
         representation['occupation'] = [occupation['occ_name'] for occupation in representation['occupation']]
         return representation
 
-class SongSerializer(serializers.ModelSerializer):   
+class SongSerializer(serializers.ModelSerializer):  
     class Meta:
         model = Song
         fields = ['title','movie_name','genre','duration','release','artists']
         depth = 1
 
-    def validate_duration(self, value):
-        if value < 0:
-            raise serializers.ValidationError("Duration must be a positive integer.")
-        return value
-
-    def validate(self, attrs):
-        artist_data = attrs.get('artists')
-        if artist_data and len(artist_data) > 5:
-            raise serializers.ValidationError("A song can have a maximum of 5 artists.")
-        return attrs
-
 
 class PlaylistSerializer(serializers.ModelSerializer):
     songs = SongSerializer(many=True, read_only=True)
-
+    
     class Meta:
         model = Playlist
-        fields = ['name','songs']
+        fields = ['name','songs','user']
         depth = 1
 
 
@@ -51,7 +40,7 @@ class PlaylistSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email')
+        fields = ['id', 'username', 'email']
 
 # Register Serializer
 class RegisterSerializer(serializers.ModelSerializer):

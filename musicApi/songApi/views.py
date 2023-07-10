@@ -122,7 +122,7 @@ def playlist_list_create(request):
                     raise ValidationError("Song does not exist. Please create new song")
 
             except Playlist.DoesNotExist:
-                playlist = serializer.save(user=user)
+                playlist = serializer.save(user=[user])
                 songs = Song.objects.filter(title=song_data)
 
                 if songs.exists():
