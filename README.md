@@ -26,7 +26,7 @@ Provide step-by-step instructions for setting up and running the project locally
 
 ### Songs
 - `GET /api/songs/`: Retrieves a list of all songs.
-    
+
 - `POST /api/songs/`: Creates a new song.
 - `GET /api/songs/{song_id}/`: Retrieves details of a specific song.
 - `PUT /api/songs/{song_id}/`: Updates details of a specific song.
@@ -68,6 +68,29 @@ Provide a description of the serializers used to convert the model instances to 
 - `SongSerializer`: Serializes/deserializes the `Song` model.
 - `PlaylistSerializer`: Serializes/deserializes the `Playlist` model.
 - `ArtistSerializer`:Serializes/deserializes the `Artist` model.
+
+
+### Sample josn data for `POST /api/songs/`: Creates a new song.
+
+{
+    "title":"Pathala Pathala",    
+    "movie_name":"Vikram",
+    "genre":"New songs",   
+    "duration":"245",
+    "release":"2023",
+    "artists": [
+        {
+        "name":"Kamalahasan",
+        "full_name":"kamalahasan",
+        "occupation":[{
+            "occ_name":"Actor"
+        },{
+            "occ_name":"Singer"
+        }
+        ]
+        }  
+    ]    
+}
 
 
 
