@@ -1,12 +1,4 @@
 # music-streaming-Django-restAPI
-
-Certainly! Here's an example of how you can prepare the documentation for your Django REST Framework project to submit to the client:
-
-# Project Name
-
-## Overview
-Provide a brief overview of the project, describing its purpose and main functionalities.
-
 ## Technologies Used
 - Django: [4.2.3]
 - Django REST Framework: [3.14.0]
